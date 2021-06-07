@@ -1,0 +1,158 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#define LC 500
+char nome[LC][50];
+int cpf[LC];
+int r1;
+void cadastro();
+void pesquisa();
+void listaDeClientes();
+
+
+int main(void){
+    setlocale(LC_ALL, "Portuguese");
+    do{
+        system("cls");
+        printf(" ***********************\n");
+        printf("      DAMA SAPATOS\n");
+        printf(" ***********************\n");
+        printf("\nSelecione a opção desejada:\n1- Cadastrar Cliente.\n2- Lista de clientes.\n3- Pesquisa de cadastro.\n4- Sair.\n\n");
+        scanf("%d", &r1);
+        switch(r1){
+            case 1:
+                cadastro();
+                break;
+
+            case 2:
+                listaDeClientes();
+                break;
+
+            case 3:
+                pesquisa();
+                break;
+
+            case 4:
+                printf("\n -----------------------\n");
+                printf("        ATÉ LOGO.\n");
+                printf(" -----------------------\n");
+                system("exit");
+                break;
+
+            default:
+                printf("\nSelecione uma opção válida");
+                getchar();
+                getchar();
+                break;
+            }
+        }while(r1!=4);
+}
+void listaDeClientes(){
+    int cliente;
+    printf("\n -----------------------\n");
+    printf("  CLIENTES CADASTRADOS.\n");
+    printf(" -----------------------\n");
+
+    for(cliente=0;cliente<LC;cliente++){
+        if(cpf[cliente]>0){
+            printf("\nNome: %s \nCPF: %d\n", nome[cliente], cpf[cliente]);
+        }else{
+            break;
+            }
+    }
+    getchar();
+    getchar();
+}
+void cadastro(){
+    static int cliente;
+
+    printf("\n -----------------------\n");
+    printf("   SISTEMA DE CADASTRO\n");
+    printf("      DE CLIENTES.\n");
+    printf(" -----------------------\n");
+
+    do{
+       printf("\nDigite o nome do cliente: ");
+       scanf("%s", &nome[cliente]);
+       printf("Digite o CPF do cliente: ");
+       scanf("%d", &cpf[cliente]);
+       printf("\nCliente cadastrado com sucesso!\n");
+       printf("\nDeseja cadastrar outro cliente?\n");
+       printf("1- SIM // 2- NÃO ");
+       scanf("%d", &r1);
+       switch(r1){
+        case 1:
+            printf("------------------------");
+            printf("\n");
+            cliente++;
+            break;
+
+        default:
+            printf("\n-------------------------------\n");
+            printf("Sistema de cadastro finalizado.\n");
+            printf("-------------------------------\n");
+            cliente++;
+       }
+    }while(r1==1);
+    getchar();
+    getchar();
+}
+
+void pesquisa(){
+    int cpfPesquisa;
+    int pesquisa;
+    char nomePesquisa[50];
+
+    printf("\n -----------------------\n");
+    printf("   PESQUISA DE CLIENTES.\n");
+    printf(" -----------------------\n");
+
+    do{
+        printf("\nSelecione a opção para pesquisar o cliente:");
+        printf("\n1- PESQUISAR POR NOME // 2- PESQUISAR POR CPF ");
+        scanf("%d", &r1);
+        switch(r1){
+        case 1:
+            printf("\nDigite o nome do cliente: ");
+            scanf("%s", &nomePesquisa);
+            for(pesquisa=0;pesquisa<LC;pesquisa++){
+                if (strcmp(nome[pesquisa], nomePesquisa)==0){
+                    printf("\nNome: %s \nCPF: %d\n", nome[pesquisa], cpf[pesquisa]);
+                    break;
+                }
+            }
+            break;
+
+        case 2:
+            printf("\nDigite o CPF do cliente: ");
+            scanf("%d", &cpfPesquisa);
+            for(pesquisa=0;pesquisa<LC;pesquisa++){
+                if (cpf[pesquisa]==cpfPesquisa){
+                    printf("\nNome: %s \nCPF: %d\n", nome[pesquisa], cpf[pesquisa]);
+                    break;}
+            }
+            break;
+
+        default:
+            printf("Opção inválida");
+
+            break;
+        }
+        printf("\nPesquisar outro cliente?: \n");
+        printf("1- SIM // 2- NÃO ");
+        scanf("%d", &r1);
+            switch(r1){
+        case 1:
+            printf("------------------------");
+            printf("\n");
+            break;
+
+        default:
+            printf("\n-------------------------------\n");
+            printf("Sistema de pesquisa finalizado!\n");
+            printf("-------------------------------\n");
+            }
+    }while(r1==1);
+    getchar();
+    getchar();
+}
